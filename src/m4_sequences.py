@@ -134,13 +134,19 @@ def practice_problem4a(sequence):
       :type sequence: list | tuple | string
     """
     ####################################################################
-    # TODO: 2. Implement and test this function.
+    # done: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     ####################################################################
     # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 minutes.
     ####################################################################
+    list_to_return = []
+    for i in range(len(sequence) - 1):
+        if sequence[i] == sequence[i + 1]:
+            list_to_return.append(i)
+
+    return list_to_return
 
 
 def run_test_practice_problem4b():
@@ -197,13 +203,19 @@ def practice_problem4b(sequence):
       :type sequence: (list | tuple) of (float | int)
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # done: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     ####################################################################
     # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
     #    DIFFICULTY:      5
     #    TIME ESTIMATE:   10 minutes.
     ####################################################################
+    largest_number = sequence[0]
+    for i in range(0, len(sequence), 2):
+        if sequence[i] > largest_number:
+            largest_number = sequence[i]
+
+    return largest_number
 
 
 def run_test_practice_problem4c():
@@ -295,7 +307,7 @@ def practice_problem4c(points):
       :rtype: rg.Point | string
     """
     ####################################################################
-    # TODO: 4. Implement and test this function.
+    # done: 4. Implement and test this function.
     #     The testing code is already written for you (above).
     #
     # IMPORTANT: This problem is your LOWEST PRIORITY for preparing
@@ -306,6 +318,14 @@ def practice_problem4c(points):
     #    DIFFICULTY:      9
     #    TIME ESTIMATE:   15 minutes.
     ####################################################################
+    for i in range(len(points)):
+        if is_prime(points[i].x) & is_prime(points[i].y):
+            hold = points[i].x
+            points[i].x = points[i].y
+            points[i].y = hold
+            return points[i]
+
+    return 'Not found'
 
 
 def run_test_practice_problem4d():
@@ -391,13 +411,20 @@ def practice_problem4d(sequence):
       :rtype: int
     """
     ####################################################################
-    # TODO: 5. Implement and test this function.
+    # done: 5. Implement and test this function.
     #     The testing code is already written for you (above).
     ####################################################################
     # DIFFICULTY AND TIME RATINGS (see top of this file for explanation)
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 minutes.
     ####################################################################
+    total = 0
+    for i in range(len(sequence) - 1):
+        if is_prime(sequence[i]) & is_prime(sequence[i + 1]):
+            if sequence[i] != sequence[i + 1]:
+                total = total + sequence[i]
+
+    return total
 
 
 # ----------------------------------------------------------------------
