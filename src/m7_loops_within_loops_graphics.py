@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in 2D GRAPHICS problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Thomas Meehan.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -89,7 +89,7 @@ def hourglass(window, n, point, radius, color):
     a color that rosegraphics understands.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # done: 2. Implement and test this function.
     #       We provided some tests for you (above).
     # ------------------------------------------------------------------
     ####################################################################
@@ -101,6 +101,73 @@ def hourglass(window, n, point, radius, color):
     #    DIFFICULTY:      8
     #    TIME ESTIMATE:  25 minutes (warning: this problem is challenging)
     # ------------------------------------------------------------------
+    import math
+
+    list_of_centers_going_up = []
+    center = point.clone()
+
+    circle = rg.Circle(point, radius)
+    circle.fill_color = color
+    circle.attach_to(window)
+    line = rg.Line(rg.Point(point.x - radius, point.y), rg.Point(point.x +
+                                                                 radius,
+                                                                 point.y))
+    line.attach_to(window)
+
+    for i in range(n - 1):
+        center = center.clone()
+        list_of_centers_going_up.append(center)
+        center.x = center.x - radius
+        center.y = center.y - (radius * math.sqrt(3))
+
+    list_of_centers_going_down = []
+    center = point.clone()
+
+    for i in range(n - 1):
+        center = center.clone()
+        list_of_centers_going_down.append(center)
+        center.x = center.x - radius
+        center.y = center.y + (radius * math.sqrt(3))
+
+    for i in range(len(list_of_centers_going_down)):
+        circle1 = rg.Circle(list_of_centers_going_down[i], radius)
+        circle2 = rg.Circle(list_of_centers_going_up[i], radius)
+        circle1.fill_color = color
+        circle2.fill_color = color
+        circle1.attach_to(window)
+        circle2.attach_to(window)
+
+        for j in range(i + 2):
+            circle3 = rg.Circle(rg.Point(list_of_centers_going_down[i].x +
+                                         ((2 * radius) * j),
+                                         list_of_centers_going_down[i].y),
+                                radius)
+            circle4 = rg.Circle(rg.Point(list_of_centers_going_up[i].x +
+                                         ((2 * radius) * j),
+                                         list_of_centers_going_up[i].y),
+                                radius)
+            circle3.fill_color = color
+            circle4.fill_color = color
+            circle3.attach_to(window)
+            circle4.attach_to(window)
+
+    for i in range(len(list_of_centers_going_up)):
+        start = rg.Point(list_of_centers_going_up[i].x - radius,
+                         list_of_centers_going_up[i].y)
+        end = rg.Point(
+            list_of_centers_going_up[i].x + (radius * ((i + 1) * 2)) + radius,
+            list_of_centers_going_up[i].y)
+        line = rg.Line(start, end)
+        line.attach_to(window)
+        start = rg.Point(list_of_centers_going_down[i].x - radius,
+                         list_of_centers_going_down[i].y)
+        end = rg.Point(
+            list_of_centers_going_down[i].x + (radius * ((i + 1) * 2)) +
+            radius,
+            list_of_centers_going_down[i].y)
+        line = rg.Line(start, end)
+        line.attach_to(window)
+    window.render()
 
 
 def run_test_many_hourglasses():
@@ -179,6 +246,38 @@ def many_hourglasses(window, square, m, colors):
     #                         a correct "hourglass" function above)
     #    TIME ESTIMATE:  20 minutes (warning: this problem is challenging)
     # ------------------------------------------------------------------
+    import math
+
+    square.attach_to(window)
+
+    center = square.center
+    radius = square.length_of_each_side / 2
+    hourglass(window, 1, center, radius, colors[0])
+
+    number_drawn = 1
+    list_of_centers = []
+    for i in range(m - 1):
+        center = center.clone()
+        if number_drawn == len(colors):
+            number_drawn = 0
+        color = colors[number_drawn]
+        center.x = center.x + radius * (((i + 1) * 2) + 1)
+        list_of_centers.append(center)
+        hourglass(window, i + 2, center, radius, color)
+        number_drawn = number_drawn + 1
+    for i in range(len(list_of_centers)):
+        x1 = list_of_centers[i].x - (i + 2) * radius
+        y1 = list_of_centers[i].y - ((i + 1) * radius * math.sqrt(3)) - \
+             radius
+        point1 = rg.Point(x1, y1)
+        x2 = list_of_centers[i].x + (i + 2) * radius
+        y2 = list_of_centers[i].y + ((i + 1) * radius * math.sqrt(3)) + \
+             radius
+        point2 = rg.Point(x2, y2)
+        rectangle = rg.Rectangle(point1, point2)
+        rectangle.attach_to(window)
+
+    window.render()
 
 
 # ----------------------------------------------------------------------

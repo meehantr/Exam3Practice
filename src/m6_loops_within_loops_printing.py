@@ -5,8 +5,9 @@ This problem provides practice at:
   ***  LOOPS WITHIN LOOPS in PRINTING-TO-CONSOLE problems.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Thomas Meehan.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
+
 
 ########################################################################
 # Students:
@@ -75,7 +76,7 @@ def shape(r):
     For purposes of "lining up", assume r is a single digit.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # done: 2. Implement and test this function.
     #          Some tests are already written for you (above).
     #
     ####################################################################
@@ -87,6 +88,26 @@ def shape(r):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:  15 minutes.
     # ------------------------------------------------------------------
+    for j in range(r):
+
+        str_of_plusses = ''
+        for i in range(r - j):
+            str_of_plusses = str_of_plusses + '+'
+
+        str_of_spaces = ''
+        for i in range(j):
+            str_of_spaces = str_of_spaces + ' '
+
+        str_of_numbers = ''
+        for i in range(r - j, 0, -1):
+            str_of_numbers = str_of_numbers + str(i)
+
+        str_of_dashes = ''
+        for i in range(j):
+            str_of_dashes = str_of_dashes + '-'
+
+        print(str_of_spaces + str_of_plusses + '!' + str_of_numbers + \
+              str_of_dashes)
 
 
 # ----------------------------------------------------------------------
